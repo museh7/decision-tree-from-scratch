@@ -1,0 +1,101 @@
+customer_age,monthly_spending,contract_type,subscription_length_months,payment_method,support_interactions,churn
+56,31.21,Annual,34,PayPal,5,0
+46,66.31,Monthly,37,Credit Card,9,0
+32,26.33,Annual,6,Direct Debit,4,0
+60,57.07,Annual,7,PayPal,5,1
+25,62.74,Monthly,32,Credit Card,5,0
+38,50.89,Monthly,32,PayPal,8,0
+56,41.95,Annual,25,PayPal,3,0
+36,37.65,Monthly,33,PayPal,1,0
+40,33.12,Monthly,7,PayPal,8,0
+28,74.93,Annual,12,Credit Card,1,0
+28,67.8,Monthly,16,Credit Card,9,0
+41,77.48,Annual,16,Credit Card,8,0
+53,16.95,Annual,43,PayPal,1,0
+57,60.62,Monthly,36,PayPal,7,0
+41,75.56,Monthly,13,PayPal,8,0
+20,21.05,Monthly,7,Credit Card,9,1
+39,12.79,Monthly,36,PayPal,8,0
+19,61.36,Monthly,47,Direct Debit,9,0
+41,49.36,Annual,9,PayPal,8,0
+61,68.61,Monthly,32,Direct Debit,1,0
+47,18.06,Monthly,11,PayPal,3,1
+55,65.26,Annual,8,Credit Card,6,0
+19,22.52,Annual,33,PayPal,1,0
+38,19.78,Annual,23,Direct Debit,0,0
+50,19.83,Monthly,25,Direct Debit,2,0
+29,66.65,Annual,8,PayPal,3,1
+39,55.89,Monthly,45,Direct Debit,7,1
+61,45.66,Monthly,22,Direct Debit,5,0
+42,33.84,Monthly,4,Credit Card,1,1
+44,71.16,Annual,40,PayPal,8,0
+59,36.26,Monthly,3,PayPal,1,1
+45,66.8,Monthly,29,PayPal,4,0
+33,39.62,Monthly,41,Direct Debit,3,0
+32,35.14,Monthly,29,PayPal,6,0
+64,41.31,Annual,34,PayPal,7,0
+61,29.7,Annual,34,Credit Card,4,0
+20,61.83,Annual,28,Credit Card,9,0
+54,44.2,Monthly,13,Credit Card,4,0
+24,24.72,Monthly,15,Direct Debit,1,0
+38,72.77,Monthly,23,PayPal,7,0
+26,35.64,Monthly,44,Credit Card,1,1
+56,47.14,Monthly,26,Credit Card,9,0
+35,73.27,Annual,4,Credit Card,5,0
+21,52.95,Monthly,26,PayPal,7,0
+42,16.42,Monthly,40,PayPal,5,0
+31,75.67,Monthly,9,PayPal,3,0
+26,53.19,Monthly,5,Direct Debit,3,1
+43,32.11,Monthly,32,Direct Debit,5,0
+19,18.03,Annual,20,Credit Card,3,1
+37,65.17,Annual,11,PayPal,7,0
+45,52.65,Annual,15,Credit Card,8,0
+64,46.41,Monthly,32,PayPal,0,0
+24,72.36,Monthly,28,PayPal,3,0
+61,64.78,Monthly,22,PayPal,3,1
+25,18.92,Monthly,41,Direct Debit,1,1
+64,30.44,Annual,17,Direct Debit,5,0
+52,25.89,Monthly,26,PayPal,2,1
+31,61.56,Monthly,44,Credit Card,6,1
+34,10.41,Monthly,7,PayPal,4,1
+53,49.03,Monthly,42,PayPal,3,0
+57,62.9,Annual,26,Credit Card,4,0
+21,71.13,Monthly,25,PayPal,7,0
+19,32.63,Monthly,10,Credit Card,2,1
+23,67.13,Monthly,45,Direct Debit,6,0
+59,15.97,Monthly,19,Direct Debit,5,0
+21,68.94,Annual,11,Credit Card,0,0
+46,17.18,Annual,13,Direct Debit,6,0
+35,36.6,Annual,8,Direct Debit,6,0
+43,65.41,Annual,40,Credit Card,0,0
+61,18.79,Monthly,4,Direct Debit,8,1
+51,24.51,Annual,47,PayPal,5,0
+27,60.0,Monthly,31,PayPal,1,0
+53,59.84,Monthly,28,Credit Card,4,0
+31,54.16,Annual,11,Direct Debit,3,0
+48,57.96,Monthly,43,PayPal,6,0
+32,47.08,Annual,1,PayPal,7,0
+25,26.13,Monthly,47,Direct Debit,0,0
+31,32.89,Annual,38,Direct Debit,4,0
+40,21.08,Annual,24,PayPal,2,0
+57,73.41,Annual,47,PayPal,0,0
+38,50.0,Annual,31,Credit Card,2,0
+33,36.86,Annual,41,Credit Card,5,0
+62,41.26,Monthly,46,PayPal,6,1
+35,76.2,Monthly,26,Credit Card,7,0
+64,19.04,Monthly,5,PayPal,3,0
+41,50.21,Annual,20,PayPal,2,0
+43,44.42,Monthly,41,Credit Card,4,0
+42,52.02,Annual,11,Credit Card,8,0
+62,9.3,Monthly,33,Direct Debit,5,1
+58,70.79,Monthly,38,Direct Debit,8,0
+46,75.11,Annual,27,Direct Debit,5,0
+32,48.69,Monthly,34,PayPal,1,0
+62,58.16,Monthly,15,Credit Card,4,0
+18,74.42,Monthly,32,PayPal,8,0
+42,58.92,Annual,21,Credit Card,7,0
+24,18.98,Annual,46,PayPal,6,0
+26,49.49,Monthly,5,Direct Debit,0,0
+41,51.68,Monthly,6,Direct Debit,3,1
+18,38.54,Monthly,38,Direct Debit,6,1
+61,61.02,Annual,22,PayPal,6,1
