@@ -27,30 +27,39 @@ x= gini(y)
 
 # STEP 3: WRITE A FUNCTION THAT SPLITS DATA BASED ON ONE FEATURE AND THRESHOLD
 def best_split():
-    df = pd.read_csv("churn_data.csv")
-    right_set = []
-    left_set = []
-    gini_left = 0
-    gini_right = 0
-    for feature in df.columns:
-        a = df[feature].unique().tolist()
-        for a in range(len(a)):
-            for row in df[feature]:
-                if row < a:
-                    left_set.append(row)
+    df1 = pd.read_csv("churn_data.csv")
+    df2 = df1.loc[:, df1.columns != 'churn']
+    best_gini = 1 
+    best_feature = "" 
+    best_threshold = ""
+    for column in df2.columns:
+        # loop over each value in each column and compare to fixed threshold
+        for threshold in df1[column].unique():
+            right_labels = []
+            left_labels = []
+            for index, row in df1.iterrows():
+                if row[column] < threshold:
+                    left_labels.append(row['churn'])
                 else:
-                    right_set.append(row)
-            if gini(right_set) < gini_right and gini(left_set) < gini_left():
-                gini_left = gini(left_set)
-                gini_right = gini(right_set)
-    
-    print(gini_left)
-    print(gini_right)
+                    right_labels.append(row['churn'])
+            if len(left_labels) == 0 or len(right_labels) == 0:
+                continue
+            left_gini = gini(left_labels)
+            right_gini = gini(right_labels)
+            #weighted gini for this feature and threshold
+            weighted_gini = (left_gini*(len(left_labels)/(len(left_labels)+len(right_labels)))+ right_gini*(len(right_labels)/(len(right_labels)+len(left_labels))))
+            if weighted_gini < best_gini :
+                best_gini = weighted_gini 
+                best_feature = column 
+                best_threshold = threshold
+
+    print(best_gini)
+    print(best_feature)
+    print(best_threshold)
 
 best_split()
 
 
-# STEP 4: LOOP THROUGH ALL POSSIBLE FEATURES AND THRESHOLDS
 
 # STEP 5: PICK THE SPLIT WITH THE LOWEST WEIGHTED GINI
 
