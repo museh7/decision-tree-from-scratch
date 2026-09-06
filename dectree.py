@@ -1,8 +1,18 @@
 import pandas as pd
 import os
+import csv
+from sklearn.model_selection import train_test_split
+#splitting into training and test
+df1 = pd.read_csv("churn_data.csv")
+
+train_df, test_df = train_test_split(
+    df1,
+    test_size=0.2,
+    random_state=42,
+    stratify=df1['churn']
+)
 
 #gini impurity function calculates gini in a given list
-y=[1,0,0,1,0,1,0,0,0,0,0]
 def gini(y):
     numdict = {}
     total = len(y)
@@ -15,9 +25,8 @@ def gini(y):
     for count in numdict.values():
         sum_squared_probs += (count/total)**2
     return(1 - sum_squared_probs)
-x= gini(y)
 
-df1 = pd.read_csv("churn_data.csv")
+
 
 
 # Test every feature and threshold, split churn labels left/right,
@@ -84,9 +93,49 @@ def build_tree(df1):
     child_left = build_tree(left_subset)
     child_right = build_tree(right_subset)
     return TreeNode(x[0], x[1], child_left, child_right, None)
-    
-# STEP 8: WRITE predict_one()
+#prediction for one custmer
+def predict_one(row, tree):
+    #check if already a node or decision 
+    if tree.prediction is not None:
+        return tree.prediction
+    else:
+# Follow the left or right branch based on this node's feature and threshold
+        if row[tree.feature] < tree.threshold:
+            return predict_one(row, tree.child_left)
+        else:
+            return predict_one(row, tree.child_right)
 
-# STEP 9: WRITE predict() FOR MANY ROWS
+# predicttion for many customers
+def predict(rows,tree):
+    pre_dict = {}
+    for index, row in rows.iterrows():
+        prediction = predict_one(row, tree)
+        pre_dict.update({index: prediction})
+    return pre_dict
+def main():
+    tree = build_tree(train_df)
+    predictions = predict(test_df, tree)
+    #have predictions and actuals in a csv
+    results = test_df[['churn']].copy()
+    results['predicted_churn'] = results.index.map(predictions)
+    results.to_csv("predictions.csv")
 
-# STEP 10: TEST AGAINST YOUR CHURN DATASET
+    #calculate accuracy 
+    correct = 0
+    for index, row in results.iterrows():
+        if row['predicted_churn'] == row['churn']:
+            correct += 1
+
+    x = (correct / len(results)) * 100
+    print(f"accuracy is {x}%")
+        
+
+
+
+
+
+if __name__ == "__main__":
+    main()
+
+
+
