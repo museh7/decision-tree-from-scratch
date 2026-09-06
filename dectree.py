@@ -1,9 +1,24 @@
 import pandas as pd
 import os
-import csv
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
 #splitting into training and test
 df1 = pd.read_csv("churn_data.csv")
+
+#find categorical feature columns such as contract type ("Annual", "Monthly")
+# churn is excluded because it is the target we are trying to predict
+categorical_columns = df1.drop(columns=['churn']).select_dtypes(
+    include=['str', 'category']
+).columns
+# convert categorical features into numerical 0/1 columns
+# this allows both my decision tree and sklearn to compare feature values properly
+df1 = pd.get_dummies(
+    df1,
+    columns=categorical_columns,
+    dtype=int
+)
 
 train_df, test_df = train_test_split(
     df1,
@@ -25,9 +40,6 @@ def gini(y):
     for count in numdict.values():
         sum_squared_probs += (count/total)**2
     return(1 - sum_squared_probs)
-
-
-
 
 # Test every feature and threshold, split churn labels left/right,
 def best_split(df1):
@@ -51,12 +63,13 @@ def best_split(df1):
             left_gini = gini(left_labels)
             right_gini = gini(right_labels)
             #weighted gini for this feature and threshold  and keep the split with the lowest score.
-            weighted_gini = (left_gini * (len(left_labels) / (len(left_labels) + len(right_labels)))+ right_gini * (len(right_labels) / (len(right_labels) + len(left_labels))))
+            weighted_gini = (left_gini * (len(left_labels) / (len(left_labels) + len(right_labels))) + right_gini * (len(right_labels) / (len(right_labels) + len(left_labels))))
             if weighted_gini < best_gini:
                 best_gini = weighted_gini 
                 best_feature = column 
                 best_threshold = threshold
     return best_feature,best_threshold,best_gini
+
 # Creating a tree node class
 class TreeNode:
     #decision nodes and leaf nodes, decisions won't have a prediction leaf's will
@@ -86,20 +99,21 @@ def build_tree(df1):
     if split_gini >= gini(churn_list):
         prediction = churn_list.value_counts().idxmax()
         return TreeNode(None, None, None, None, prediction)
-    #make the dataframe smaller by using best thresholds 
+    #make the dataframe smaller by using best thresholds
     left_subset = df1[df1[x[0]] < x[1]]
     right_subset = df1[df1[x[0]] >= x[1]]
     #recursive step keep calling build_tree until tree is done
     child_left = build_tree(left_subset)
     child_right = build_tree(right_subset)
     return TreeNode(x[0], x[1], child_left, child_right, None)
+
 #prediction for one custmer
 def predict_one(row, tree):
-    #check if already a node or decision 
+    #check if already a node or decision
     if tree.prediction is not None:
         return tree.prediction
     else:
-# Follow the left or right branch based on this node's feature and threshold
+        # Follow the left or right branch based on this node's feature and threshold
         if row[tree.feature] < tree.threshold:
             return predict_one(row, tree.child_left)
         else:
@@ -112,15 +126,17 @@ def predict(rows,tree):
         prediction = predict_one(row, tree)
         pre_dict.update({index: prediction})
     return pre_dict
+
 def main():
     tree = build_tree(train_df)
     predictions = predict(test_df, tree)
+
     #have predictions and actuals in a csv
     results = test_df[['churn']].copy()
     results['predicted_churn'] = results.index.map(predictions)
     results.to_csv("predictions.csv")
 
-    #calculate accuracy 
+    #calculate accuracy
     correct = 0
     for index, row in results.iterrows():
         if row['predicted_churn'] == row['churn']:
@@ -128,14 +144,26 @@ def main():
 
     x = (correct / len(results)) * 100
     print(f"accuracy is {x}%")
-        
 
+    #compare against sklearn decision tree
+    X_train = train_df.drop(columns=['churn'])
+    y_train = train_df['churn']
 
+    X_test = test_df.drop(columns=['churn'])
+    y_test = test_df['churn']
 
+    sklearn_tree = DecisionTreeClassifier(
+        criterion='gini',
+        random_state=42
+    )
 
+    sklearn_tree.fit(X_train, y_train)
+
+    sklearn_predictions = sklearn_tree.predict(X_test)
+
+    sklearn_accuracy = accuracy_score(y_test, sklearn_predictions) * 100
+
+    print(f"sklearn accuracy is {sklearn_accuracy}%")
 
 if __name__ == "__main__":
     main()
-
-
-
